@@ -1,9 +1,12 @@
 package com.ics.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="students")
@@ -29,6 +32,14 @@ public class Student {
 
     @Column(name="dob")
     private String dob;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name="university_id")
+    private University university;
+
+    @ManyToMany(mappedBy = "students")
+    private Set<Course> courses = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -70,14 +81,31 @@ public class Student {
         this.dob = dob;
     }
 
+    public University getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(University university) {
+        this.university = university;
+    }
+
+    public Set<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(Set<Course> courses) {
+        this.courses = courses;
+    }
+
     public Student(){}
 
-    public Student(String firstName, String lastName, String middleName, String dob){
+    public Student(String firstName, String lastName, String middleName, String dob, University university){
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.middleName = middleName;
         this.dob = dob;
+        this.university = university;
     }
 
     public interface Create{}

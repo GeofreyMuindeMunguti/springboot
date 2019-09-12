@@ -2,6 +2,7 @@ package com.ics.demo.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name= "universities")
@@ -24,6 +25,18 @@ public class University {
 
     @Column(name="year_founded")
     private String yearFounded;
+
+    @OneToMany(mappedBy = "university")
+    private List<Student> students;
+
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
 
     public University(String name, String location) {
         this.name = name;

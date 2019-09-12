@@ -1,7 +1,9 @@
 package com.ics.demo;
 
+import com.ics.demo.models.Course;
 import com.ics.demo.models.Student;
 import com.ics.demo.models.University;
+import com.ics.demo.repositories.CourseRepository;
 import com.ics.demo.repositories.StudentRepository;
 import com.ics.demo.repositories.UniversityRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -11,11 +13,14 @@ import org.springframework.stereotype.Component;
 public class DummyData implements CommandLineRunner {
     private final UniversityRepository universityRepository;
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
-    public DummyData(UniversityRepository universityRepository, StudentRepository studentRepository) {
+
+    public DummyData(UniversityRepository universityRepository, StudentRepository studentRepository, CourseRepository courseRepository) {
 
         this.universityRepository = universityRepository;
         this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Override
@@ -26,11 +31,23 @@ public class DummyData implements CommandLineRunner {
         University jkuat = new University("Jkuat", "Thika Road");
         universityRepository.save(jkuat);
 
-        Student geo = new Student("Muinde","Geofrey", "Munguti","12 August");
-        studentRepository.save(geo);
+        Student muinde = new Student("Muinde", "Geofrey", "Munguti", "12 August 1997", jkuat);
+        studentRepository.save(muinde);
 
-        Student brian = new Student("Mutinda","Brian", "Muema","12 August");
-        studentRepository.save(brian);
+        Student muinde2 = new Student("Muinde", "Geofrey", "Munguti", "12 August 1997", jkuat);
+        studentRepository.save(muinde);
+
+        Course course = courseRepository.save(
+                new Course("Application Programming for the Internet"));
+
+        Course course1 = new Course("Technological programming");
+        Course savedCourse1 = courseRepository.save(course1);
+
+        course.addStudent(muinde);
+        courseRepository.save(course);
+
+        savedCourse1.addStudent(muinde2);
+        courseRepository.save(savedCourse1);
 
 
     }

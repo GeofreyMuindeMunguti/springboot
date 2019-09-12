@@ -1,6 +1,7 @@
 package com.ics.demo.services;
 
 import com.ics.demo.NotFoundException;
+import com.ics.demo.models.Student;
 import com.ics.demo.models.University;
 import com.ics.demo.repositories.UniversityRepository;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,11 @@ public class UniversityServiceImpl implements UniversityService {
 
 
     private final UniversityRepository universityRepository;
+    private final  StudentService studentService;
 
-    public UniversityServiceImpl(UniversityRepository universityRepository) {
+    public UniversityServiceImpl(UniversityRepository universityRepository, StudentService studentService) {
         this.universityRepository = universityRepository;
+        this.studentService = studentService;
     }
 
     @Override
@@ -62,5 +65,12 @@ public class UniversityServiceImpl implements UniversityService {
         found.setYearFounded(university.getYearFounded());
 
         return universityRepository.save(found);
+    }
+    @Override
+    public Student createStudent(Long id, Student student){
+        University university = findById(id);
+
+        student.setUniversity(university);
+        return studentService.createStudent(student);
     }
 }
