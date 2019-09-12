@@ -8,7 +8,8 @@ import com.ics.demo.repositories.StudentRepository;
 import com.ics.demo.repositories.UniversityRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-
+//FEIGNClient
+//RestTemplate
 @Component
 public class DummyData implements CommandLineRunner {
     private final UniversityRepository universityRepository;
@@ -35,13 +36,17 @@ public class DummyData implements CommandLineRunner {
         studentRepository.save(muinde);
 
         Student muinde2 = new Student("Muinde", "Geofrey", "Munguti", "12 August 1997", jkuat);
-        studentRepository.save(muinde);
+        studentRepository.save(muinde2);
 
         Course course = courseRepository.save(
                 new Course("Application Programming for the Internet"));
 
         Course course1 = new Course("Technological programming");
         Course savedCourse1 = courseRepository.save(course1);
+
+        Course governance = new Course("Corporate Governance");
+        governance.addStudent(muinde);
+        courseRepository.save(governance);
 
         course.addStudent(muinde);
         courseRepository.save(course);

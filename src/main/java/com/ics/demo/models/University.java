@@ -83,4 +83,15 @@ public class University {
     public interface  Create{
 
     }
+
+    @Override
+    public String toString() {
+        return "University{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", yearFounded='" + yearFounded + '\'' +
+                ", students=" + students +
+                '}';
+    }
 }

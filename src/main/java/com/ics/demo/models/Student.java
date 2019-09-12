@@ -110,4 +110,17 @@ public class Student {
 
     public interface Create{}
     public interface Update{}
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", dob='" + dob + '\'' +
+                ", university=" + university +
+                ", courses=" + courses +
+                '}';
+    }
 }
